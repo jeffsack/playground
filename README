@@ -1,0 +1,13 @@
+# playground
+
+Sample project to explore Cascalog against various types of data sources (Cascading Taps).
+
+## Usage
+
+I don't know yet.
+
+## License
+
+Copyright (C) 2012 FIXME
+
+Distributed under the Eclipse Public License, the same as Clojure.
