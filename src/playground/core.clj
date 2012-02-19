@@ -16,7 +16,7 @@
            [java.sql DriverManager]))
 
 
-(def url "jdbc:h2:~/test")
+(def url "jdbc:h2:.tempdata")
 (def driver-name "org.h2.Driver")
 (def username "sa")
 (def password "")
