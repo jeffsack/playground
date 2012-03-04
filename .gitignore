@@ -24,3 +24,5 @@ doc
 *.swp
 .idea
 .tempdata*
+classes/
+data/
