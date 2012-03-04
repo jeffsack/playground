@@ -21,8 +21,6 @@
 (def username "sa")
 (def password "")
 
-(Class/forName driver-name)
-
 (def datasource (org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy.
                   (let [simpleDatasource (org.springframework.jdbc.datasource.SimpleDriverDataSource.)]
                     (.setDriverClass simpleDatasource (Class/forName driver-name))
@@ -45,11 +43,6 @@
        "create or replace table GENDER (NAME VARCHAR(255), GENDER CHAR(1))"
        "create or replace table FOLLOWS (person_follower VARCHAR(255), person_followed VARCHAR(255))"
        "create or replace table LOCATION (person VARCHAR(255), country VARCHAR(255), state VARCHAR(255), city VARCHAR(255))")))
-
-
-(sql/with-connection db
-  (sql/with-query-results rs ["select * from PERSON"]
-    (dorun (map #(println %) rs))))
 
 (defn tear-down []
   (sql/with-connection db
@@ -79,15 +72,6 @@
 (def location (create-jdbc-tap "location" ["person" "country" "state" "city"] ["varchar(100) not null" "varchar(100) not null" "varchar(100) not null" "varchar(100) not null"] ["person"]))
 
 
-(tear-down)
-
-(setup)
-
-(insert-data! db "person" ["name"] person-data)
-(insert-data! db "age" ["name" "age"] age-data)
-(insert-data! db "gender" ["name" "gender"] gender-data)
-(insert-data! db "follows" ["person_follower" "person_followed"] follows-data)
-(insert-data! db "location" ["person" "country" "state" "city"] location-data)
 
 
 

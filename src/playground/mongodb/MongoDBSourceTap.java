@@ -13,7 +13,10 @@ import playground.ObjectHolder;
 import playground.SourceScheme;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 
 public class MongoDBSourceTap extends SourceTap {
 
@@ -74,16 +77,20 @@ public class MongoDBSourceTap extends SourceTap {
 
         @Override
         public Tuple source(Object key, Object value) {
-            log.info("source(" + key + ", " + value + ")");
+            log.debug("source(" + key + ", " + value + ")");
 
-            ObjectId objectId = ((ObjectHolder<ObjectId>)key).object;
+            ObjectId objectId = ((ObjectHolder<ObjectId>) key).object;
             Map<String, Object> map = (Map<String, Object>) value;
 
             Iterator iterator = getSourceFields().iterator();
             ArrayList<Object> values = new ArrayList<Object>();
-            for(;iterator.hasNext();) {
+            for (; iterator.hasNext(); ) {
                 String fieldName = iterator.next().toString();
-                values.add(map.get(fieldName));
+                if (fieldName.equals("_id")) {
+                    values.add(objectId.toString());
+                } else {
+                    values.add(map.get(fieldName));
+                }
             }
             Tuple tuple = new Tuple(values.toArray());
             log.info("source() built tuple: " + tuple);

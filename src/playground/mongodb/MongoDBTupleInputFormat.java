@@ -34,7 +34,7 @@ public class MongoDBTupleInputFormat implements InputFormat<ObjectHolder<ObjectI
         }
 
         public TupleInputSplit(long numObjects) {
-            log.info("building InputSplit of size: " + numObjects);
+            log.debug("building InputSplit of size: " + numObjects);
             this.numObjects = numObjects;
         }
 
@@ -71,7 +71,7 @@ public class MongoDBTupleInputFormat implements InputFormat<ObjectHolder<ObjectI
                 return false;
             }
             BasicDBObject nextDbObject = (BasicDBObject) dbCursor.next();
-            log.info("retrieved next DBObject: " + nextDbObject);
+            log.debug("retrieved next DBObject: " + nextDbObject);
 
             k.object = nextDbObject.getObjectId("_id");
 
@@ -149,7 +149,7 @@ public class MongoDBTupleInputFormat implements InputFormat<ObjectHolder<ObjectI
         Mongo mongo = new Mongo(host, port);
         DB db = mongo.getDB(database);
         DBCollection dbCollection = db.getCollection(collection);
-        log.info("connected to DB: " + db + "; retrieved collection: " + dbCollection);
+        log.debug("connected to DB: " + db + "; retrieved collection: " + dbCollection);
         return dbCollection;
     }
 }

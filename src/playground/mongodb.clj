@@ -13,7 +13,6 @@
 (defn delete-collections [conn colls]
   (map #(with-mongo conn (drop-coll! %)) colls))
 
-(delete-collections conn ["person" "age" "gender" "follows" "location"])
 
 (defn make-maps [columns values]
   (map (fn [row] (zipmap columns row)) values))
@@ -22,23 +21,13 @@
   (let [records (map (fn [row] (zipmap columns row)) values)]
     (map #(with-mongo conn (insert! coll %)) records)))
 
-(insert-data! conn "person" ["name"] person-data)
-
-(insert-data! conn "age" ["name" "age"] age-data)
-
-(insert-data! conn "gender" ["name" "gender"] gender-data)
-
-(insert-data! conn "follows" ["person_follower" "person_followed"] follows-data)
-
-(insert-data! conn "location" ["person" "country" "state" "city"] location-data)
-
 (defn make-fields [fields] (cascading.tuple.Fields. (into-array Comparable fields)))
 
 (defn create-mongo-tap
   [host port db coll fields]
     (playground.mongodb.MongoDBSourceTap. host port db coll (make-fields fields)))
 
-(def person (create-mongo-tap "127.0.0.1" 27017 "test" "person" ["id" "name"]))
+(def person (create-mongo-tap "127.0.0.1" 27017 "test" "person" ["_id" "name"]))
 
 (def age (create-mongo-tap "127.0.0.1" 27017 "test" "age" ["name" "age"]))
 
