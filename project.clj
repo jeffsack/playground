@@ -14,7 +14,8 @@
                  [org.springframework/spring-jdbc "3.1.0.RELEASE"]
 
                  [org.mongodb/mongo-java-driver "2.7.3"]
-                 [org.mongodb/mongo-hadoop_cdh3u3 "1.0.0-rc0"]
+                 [org.mongodb/mongo-hadoop-core_cdh3u3 "1.0.0-cascading-rc1-SNAPSHOT"]
+;                 [org.mongodb/mongo-hadoop_cdh3u3 "1.0.0-rc0"]
                  [djktno/cascading.mongodb "0.0.50-SNAPSHOT"]
                  [congomongo "0.1.8"]
 
